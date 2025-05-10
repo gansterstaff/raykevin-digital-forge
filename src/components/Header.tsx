@@ -3,6 +3,12 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,6 +33,21 @@ const Header = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
+  const navLinks = [
+    { title: "Acerca", path: "/about" },
+    { title: "Servicios", path: "/services" },
+    { title: "Blog", path: "/blog" },
+    { title: "Contacto", path: "/contact" }
+  ];
+
+  const homeNavLinks = [
+    { title: "Acerca de", href: "#about" },
+    { title: "Servicios", href: "#services" },
+    { title: "Mi Enfoque", href: "#approach" },
+    { title: "Testimonios", href: "#testimonials" },
+    { title: "FAQ", href: "#faq" }
+  ];
+
   return (
     <header 
       className={`fixed top-0 w-full transition-all duration-300 px-4 md:px-8 py-4 z-50 ${
@@ -39,26 +60,19 @@ const Header = () => {
             Ray<span className="text-raykevin-purple">Kevin</span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
-            <a href="#about" className="text-sm text-white/80 hover:text-white transition-colors">
-              Acerca de
-            </a>
-            <a href="#services" className="text-sm text-white/80 hover:text-white transition-colors">
-              Servicios
-            </a>
-            <a href="#approach" className="text-sm text-white/80 hover:text-white transition-colors">
-              Mi Enfoque
-            </a>
-            <a href="#testimonials" className="text-sm text-white/80 hover:text-white transition-colors">
-              Testimonios
-            </a>
-            <a href="#faq" className="text-sm text-white/80 hover:text-white transition-colors">
-              FAQ
-            </a>
-            <Link to="/blog" className="text-sm text-white/80 hover:text-white transition-colors">
-              Blog
-            </Link>
+          {/* Desktop Navigation (now hidden on all screens) */}
+          <nav className="hidden">
+            {homeNavLinks.map(link => (
+              <a key={link.href} href={link.href} className="text-sm text-white/80 hover:text-white transition-colors">
+                {link.title}
+              </a>
+            ))}
+            
+            {navLinks.map(link => (
+              <Link key={link.path} to={link.path} className="text-sm text-white/80 hover:text-white transition-colors">
+                {link.title}
+              </Link>
+            ))}
           </nav>
 
           {/* Contact Button */}
@@ -67,75 +81,98 @@ const Header = () => {
               href="https://wa.me/51921209325" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="neuro-button inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white hover:text-raykevin-purple"
+              className="neuro-button inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white hover:text-raykevin-purple shadow-[0_20px_5px_rgba(100,70,190,0.45)]"
             >
               <MessageCircle size={16} />
               <span>Contactar</span>
             </a>
           </div>
-
-          {/* Mobile Menu Button */}
-          <button 
-            className="md:hidden text-white" 
-            onClick={toggleMobileMenu}
-            aria-label="Toggle Menu"
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          
+          {/* Hamburger Menu (on all screen sizes now) */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button 
+                className="text-white" 
+                aria-label="Toggle Menu"
+              >
+                <Menu size={24} />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="bg-raykevin-darker/90 backdrop-blur-lg border border-white/10 text-white w-56">
+              {/* Home page section links */}
+              {window.location.pathname === '/' && homeNavLinks.map(link => (
+                <DropdownMenuItem key={link.href} asChild>
+                  <a 
+                    href={link.href} 
+                    className="text-white/80 hover:text-white hover:bg-white/5 cursor-pointer w-full"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.title}
+                  </a>
+                </DropdownMenuItem>
+              ))}
+              
+              {/* Site navigation */}
+              {navLinks.map(link => (
+                <DropdownMenuItem key={link.path} asChild>
+                  <Link 
+                    to={link.path} 
+                    className="text-white/80 hover:text-white hover:bg-white/5 cursor-pointer w-full"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.title}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+              
+              {/* Contact link (for mobile) */}
+              <DropdownMenuItem asChild>
+                <a 
+                  href="https://wa.me/51921209325" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-raykevin-purple hover:text-raykevin-purple-light hover:bg-white/5 cursor-pointer w-full"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Contactar por WhatsApp
+                </a>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu (kept for compatibility) */}
       {mobileMenuOpen && (
         <div className="md:hidden fixed inset-0 bg-raykevin-darker bg-opacity-95 backdrop-blur-md z-40 pt-24">
           <nav className="flex flex-col items-center gap-8 p-8 animate-fade-in">
-            <a 
-              href="#about" 
-              className="text-lg text-white/80 hover:text-white transition-colors"
-              onClick={toggleMobileMenu}
-            >
-              Acerca de
-            </a>
-            <a 
-              href="#services" 
-              className="text-lg text-white/80 hover:text-white transition-colors"
-              onClick={toggleMobileMenu}
-            >
-              Servicios
-            </a>
-            <a 
-              href="#approach" 
-              className="text-lg text-white/80 hover:text-white transition-colors"
-              onClick={toggleMobileMenu}
-            >
-              Mi Enfoque
-            </a>
-            <a 
-              href="#testimonials" 
-              className="text-lg text-white/80 hover:text-white transition-colors"
-              onClick={toggleMobileMenu}
-            >
-              Testimonios
-            </a>
-            <a 
-              href="#faq" 
-              className="text-lg text-white/80 hover:text-white transition-colors"
-              onClick={toggleMobileMenu}
-            >
-              FAQ
-            </a>
-            <Link 
-              to="/blog" 
-              className="text-lg text-white/80 hover:text-white transition-colors"
-              onClick={toggleMobileMenu}
-            >
-              Blog
-            </Link>
+            {homeNavLinks.map(link => (
+              <a 
+                key={link.href}
+                href={link.href} 
+                className="text-lg text-white/80 hover:text-white transition-colors"
+                onClick={toggleMobileMenu}
+              >
+                {link.title}
+              </a>
+            ))}
+            
+            {navLinks.map(link => (
+              <Link 
+                key={link.path}
+                to={link.path}
+                className="text-lg text-white/80 hover:text-white transition-colors"
+                onClick={toggleMobileMenu}
+              >
+                {link.title}
+              </Link>
+            ))}
+            
             <a 
               href="https://wa.me/51921209325" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="neuro-button mt-4 inline-flex items-center gap-2 px-5 py-2.5 text-base font-medium text-white hover:text-raykevin-purple"
+              className="neuro-button mt-4 inline-flex items-center gap-2 px-5 py-2.5 text-base font-medium text-white hover:text-raykevin-purple shadow-[0_20px_5px_rgba(100,70,190,0.45)]"
               onClick={toggleMobileMenu}
             >
               <MessageCircle size={18} />

@@ -22,7 +22,7 @@ const HeroSection = () => {
             href="https://wa.me/51921209325" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="neuro-button inline-flex items-center justify-center gap-2 px-8 py-3 text-base font-medium text-white hover:text-raykevin-purple"
+            className="neuro-button inline-flex items-center justify-center gap-2 px-8 py-3 text-base font-medium text-white hover:text-raykevin-purple shadow-[0_20px_5px_rgba(100,70,190,0.45)]"
           >
             <MessageCircle size={18} />
             <span>Hablemos de tu proyecto</span>

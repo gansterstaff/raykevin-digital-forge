@@ -85,3 +85,8 @@
 #root {
   @apply min-h-screen flex flex-col;
 }
+
+/* Update dropdown menu styling for proper visibility */
+[data-radix-popper-content-wrapper] {
+  z-index: 100 !important;
+}
