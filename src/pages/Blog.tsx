@@ -1,52 +1,76 @@
 
-import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, Download, Lock } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SectionTitle from '@/components/SectionTitle';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
 import GlassCard from '@/components/GlassCard';
-import { Link } from 'react-router-dom';
 
-const BlogPost = ({ title, excerpt, date, readTime, category, slug }: {
+const fadeIn = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
+
+const container = {
+  hidden: { opacity: 0 },
+  visible: { 
+    opacity: 1,
+    transition: { 
+      staggerChildren: 0.1 
+    } 
+  }
+};
+
+const BlogPost = ({ title, excerpt, date, readTime, category, slug, hasDownloadable }: {
   title: string;
   excerpt: string;
   date: string;
   readTime: string;
   category: string;
   slug: string;
+  hasDownloadable?: boolean;
 }) => {
   return (
-    <GlassCard className="h-full flex flex-col">
-      <div className="mb-4">
-        <span className="bg-raykevin-purple/20 text-raykevin-purple px-3 py-1 text-xs rounded-full">
-          {category}
-        </span>
-      </div>
-      
-      <h3 className="text-xl font-medium text-white mb-3">{title}</h3>
-      <p className="text-white/70 mb-4 flex-grow">{excerpt}</p>
-      
-      <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/10">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1 text-white/50 text-sm">
-            <Calendar size={14} />
-            <span>{date}</span>
-          </div>
-          <div className="flex items-center gap-1 text-white/50 text-sm">
-            <Clock size={14} />
-            <span>{readTime}</span>
-          </div>
+    <motion.div variants={fadeIn}>
+      <GlassCard className="h-full flex flex-col">
+        <div className="mb-4">
+          <span className="bg-raykevin-purple/20 text-raykevin-purple px-3 py-1 text-xs rounded-full">
+            {category}
+          </span>
         </div>
         
-        <Link 
-          to={`/blog/${slug}`} 
-          className="text-raykevin-purple hover:text-raykevin-purple-light transition-colors flex items-center gap-1"
-        >
-          <span>Leer</span>
-          <ArrowRight size={14} />
-        </Link>
-      </div>
-    </GlassCard>
+        <h3 className="text-xl font-medium text-white mb-3">{title}</h3>
+        <p className="text-white/70 mb-4 flex-grow">{excerpt}</p>
+        
+        <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/10">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1 text-white/50 text-sm">
+              <Calendar size={14} />
+              <span>{date}</span>
+            </div>
+            <div className="flex items-center gap-1 text-white/50 text-sm">
+              <Clock size={14} />
+              <span>{readTime}</span>
+            </div>
+            {hasDownloadable && (
+              <div className="flex items-center gap-1 text-raykevin-purple text-sm">
+                <Download size={14} />
+              </div>
+            )}
+          </div>
+          
+          <Link 
+            to={`/blog/${slug}`} 
+            className="text-raykevin-purple hover:text-raykevin-purple-light transition-colors flex items-center gap-1"
+          >
+            <span>Leer</span>
+            <ArrowRight size={14} />
+          </Link>
+        </div>
+      </GlassCard>
+    </motion.div>
   );
 };
 
@@ -58,7 +82,8 @@ const Blog = () => {
       date: "10 May, 2025",
       readTime: "5 min",
       category: "Diseño UX",
-      slug: "integrando-ux-desarrollo"
+      slug: "integrando-ux-desarrollo",
+      hasDownloadable: true
     },
     {
       title: "Optimización de rendimiento web: Técnicas avanzadas para 2025",
@@ -74,7 +99,8 @@ const Blog = () => {
       date: "28 Abr, 2025",
       readTime: "6 min",
       category: "Contenido",
-      slug: "rol-contenido-experiencia-usuario"
+      slug: "rol-contenido-experiencia-usuario",
+      hasDownloadable: true
     },
     {
       title: "Implementando RAG en aplicaciones web modernas",
@@ -109,27 +135,51 @@ const Blog = () => {
       <main className="pt-20">
         <section className="section-padding">
           <div className="container mx-auto px-4">
-            <AnimateOnScroll>
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={fadeIn}
+              transition={{ duration: 0.5 }}
+            >
               <SectionTitle 
                 title="Blog" 
                 subtitle="Artículos sobre desarrollo, diseño y estrategia digital."
                 centered
               />
-            </AnimateOnScroll>
+
+              <div className="flex justify-end mb-4">
+                <Link 
+                  to="/admin/login" 
+                  className="inline-flex items-center text-sm text-white/50 hover:text-raykevin-purple transition-colors"
+                >
+                  <Lock size={14} className="mr-1" />
+                  Admin
+                </Link>
+              </div>
+            </motion.div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+            <motion.div 
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"
+              variants={container}
+              initial="hidden"
+              animate="visible"
+            >
               {blogPosts.map((post, index) => (
-                <AnimateOnScroll key={index}>
-                  <BlogPost {...post} />
-                </AnimateOnScroll>
+                <BlogPost key={index} {...post} />
               ))}
-            </div>
+            </motion.div>
             
-            <div className="flex justify-center mt-12">
+            <motion.div 
+              initial="hidden"
+              animate="visible"
+              variants={fadeIn}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="flex justify-center mt-12"
+            >
               <button className="neuro-button px-8 py-3 text-base font-medium text-white hover:text-raykevin-purple">
                 Cargar más artículos
               </button>
-            </div>
+            </motion.div>
           </div>
         </section>
       </main>
