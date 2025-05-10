@@ -29,8 +29,8 @@ const HeroSection = () => {
               target="_blank" 
               rel="noopener noreferrer"
               className="neuro-button inline-flex items-center justify-center gap-2 px-8 py-3 text-base font-medium text-white hover:text-raykevin-purple"
-              whileHover={{ y: -2 }}
-              whileTap={{ y: 0 }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
             >
               <MessageCircle size={18} />
               <span>Hablemos de tu proyecto</span>
@@ -39,8 +39,8 @@ const HeroSection = () => {
             <motion.a 
               href="#services" 
               className="inline-flex items-center justify-center px-8 py-3 text-base font-medium border border-white/20 rounded-lg bg-transparent hover:bg-white/5 text-white transition-all"
-              whileHover={{ y: -2 }}
-              whileTap={{ y: 0 }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
             >
               Conocer mis servicios
             </motion.a>

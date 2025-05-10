@@ -95,8 +95,8 @@ export default {
 				'fade-up': 'fade-up 0.7s ease-out'
 			},
 			boxShadow: {
-				'neuro': '5px 5px 10px rgba(0, 0, 0, 0.3), -5px -5px 10px rgba(255, 255, 255, 0.05), 0 20px 5px rgba(100, 70, 190, 0.45)',
-				'neuro-sm': '3px 3px 6px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(255, 255, 255, 0.05), 0 10px 3px rgba(100, 70, 190, 0.35)',
+				'neuro': '5px 5px 10px rgba(0, 0, 0, 0.2), -2px -2px 5px rgba(255, 255, 255, 0.05), 0 4px 15px rgba(155, 135, 245, 0.6)',
+				'neuro-sm': '3px 3px 6px rgba(0, 0, 0, 0.15), -1px -1px 3px rgba(255, 255, 255, 0.05), 0 2px 10px rgba(155, 135, 245, 0.5)',
 				'glass': '0 4px 20px rgba(0, 0, 0, 0.1)',
 			},
 			backdropFilter: {

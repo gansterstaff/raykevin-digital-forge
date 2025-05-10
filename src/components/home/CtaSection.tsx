@@ -1,6 +1,7 @@
 
 import { MessageCircle } from 'lucide-react';
 import AnimateOnScroll from '../AnimateOnScroll';
+import { motion } from 'framer-motion';
 
 const CtaSection = () => {
   return (
@@ -16,15 +17,17 @@ const CtaSection = () => {
               Cada proyecto es una oportunidad para crear algo único. Hablemos sobre cómo puedo ayudarte a alcanzar tus objetivos digitales.
             </p>
             
-            <a 
+            <motion.a 
               href="https://wa.me/51921209325" 
               target="_blank" 
               rel="noopener noreferrer"
               className="neuro-button inline-flex items-center justify-center gap-2 px-8 py-3 text-base font-medium text-white hover:text-raykevin-purple"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
             >
               <MessageCircle size={18} />
               <span>Contáctame por WhatsApp</span>
-            </a>
+            </motion.a>
           </div>
         </AnimateOnScroll>
       </div>
