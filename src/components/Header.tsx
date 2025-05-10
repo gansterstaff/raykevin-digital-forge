@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, X, MessageCircle } from 'lucide-react';
+import { Menu, X, MessageCircle, LogIn } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -81,7 +81,7 @@ const Header = () => {
               href="https://wa.me/51921209325" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="neuro-button inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white hover:text-raykevin-purple shadow-[0_20px_5px_rgba(100,70,190,0.45)]"
+              className="neuro-button inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white hover:text-raykevin-purple"
             >
               <MessageCircle size={16} />
               <span>Contactar</span>
@@ -124,6 +124,18 @@ const Header = () => {
                   </Link>
                 </DropdownMenuItem>
               ))}
+              
+              {/* Acceder link (new) */}
+              <DropdownMenuItem asChild>
+                <Link 
+                  to="/auth" 
+                  className="text-white/80 hover:text-white hover:bg-white/5 cursor-pointer w-full flex items-center gap-2"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <LogIn size={16} />
+                  Acceder
+                </Link>
+              </DropdownMenuItem>
               
               {/* Contact link (for mobile) */}
               <DropdownMenuItem asChild>
@@ -168,11 +180,20 @@ const Header = () => {
               </Link>
             ))}
             
+            <Link
+              to="/auth"
+              className="text-lg text-white/80 hover:text-white transition-colors flex items-center gap-2"
+              onClick={toggleMobileMenu}
+            >
+              <LogIn size={18} />
+              <span>Acceder</span>
+            </Link>
+            
             <a 
               href="https://wa.me/51921209325" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="neuro-button mt-4 inline-flex items-center gap-2 px-5 py-2.5 text-base font-medium text-white hover:text-raykevin-purple shadow-[0_20px_5px_rgba(100,70,190,0.45)]"
+              className="neuro-button mt-4 inline-flex items-center gap-2 px-5 py-2.5 text-base font-medium text-white hover:text-raykevin-purple"
               onClick={toggleMobileMenu}
             >
               <MessageCircle size={18} />
