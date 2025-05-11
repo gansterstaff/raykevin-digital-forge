@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 const HeroSection = () => {
   return (
     <section className="min-h-screen flex flex-col justify-center text-center pt-20 pb-10">
-      <div className="container mx-auto px-4 max-w-3xl">
+      <div className="container mx-auto px-4 max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -23,7 +23,7 @@ const HeroSection = () => {
             Combino desarrollo full-stack, diseño UI/UX y estrategia de contenido para transformar ideas en experiencias digitales integrales que conectan y generan resultados.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <motion.a 
               href="https://wa.me/51921209325" 
               target="_blank" 
@@ -47,20 +47,22 @@ const HeroSection = () => {
           </div>
         </motion.div>
         
-        {/* Dashboard Image */}
+        {/* Dashboard Image - Adjusted for desktop */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-12 md:mt-16 relative mx-auto max-w-5xl"
+          className="mx-auto relative"
         >
-          <img 
-            src="/lovable-uploads/2f4569f2-0274-45d7-9a52-ec45e87d47d8.png" 
-            alt="Dashboard Interface" 
-            className="w-full h-auto rounded-2xl shadow-2xl"
-          />
-          <div className="absolute -bottom-5 -right-5 w-24 h-24 bg-raykevin-purple/30 rounded-full filter blur-xl"></div>
-          <div className="absolute -top-5 -left-5 w-32 h-32 bg-raykevin-purple/20 rounded-full filter blur-xl"></div>
+          <div className="relative w-full max-w-[1200px] mx-auto">
+            <img 
+              src="/lovable-uploads/2f4569f2-0274-45d7-9a52-ec45e87d47d8.png" 
+              alt="Dashboard Interface" 
+              className="w-full h-auto rounded-2xl shadow-2xl"
+            />
+            <div className="absolute -bottom-8 -right-8 w-48 h-48 bg-raykevin-purple/30 rounded-full filter blur-3xl"></div>
+            <div className="absolute -top-8 -left-8 w-56 h-56 bg-raykevin-purple/20 rounded-full filter blur-3xl"></div>
+          </div>
         </motion.div>
       </div>
       
