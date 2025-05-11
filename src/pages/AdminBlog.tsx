@@ -31,7 +31,6 @@ const mockPosts = [
     slug: "integrando-ux-desarrollo",
     content: "Contenido completo del artículo...",
     isPublished: true,
-    hasDownloadable: true,
     downloadableFile: "ux-dev-integration-guide.pdf"
   },
   {
@@ -44,8 +43,7 @@ const mockPosts = [
     slug: "optimizacion-rendimiento-web-2025",
     content: "Contenido completo del artículo...",
     isPublished: true,
-    hasDownloadable: false,
-    downloadableFile: null
+    downloadableFile: "web-performance-2025.pdf"
   },
   {
     id: 3,
@@ -57,7 +55,6 @@ const mockPosts = [
     slug: "rol-contenido-experiencia-usuario",
     content: "Contenido completo del artículo...",
     isPublished: false,
-    hasDownloadable: true,
     downloadableFile: "content-ux-checklist.pdf"
   }
 ];
@@ -73,18 +70,12 @@ const AdminBlog = () => {
     excerpt: '',
     content: '',
     category: '',
-    hasDownloadable: false,
     downloadableFile: null as File | null,
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
-    setFormData(prev => ({ ...prev, [name]: checked }));
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,7 +92,6 @@ const AdminBlog = () => {
       excerpt: post.excerpt,
       content: post.content,
       category: post.category,
-      hasDownloadable: post.hasDownloadable,
       downloadableFile: null,
     });
   };
@@ -114,13 +104,21 @@ const AdminBlog = () => {
       excerpt: '',
       content: '',
       category: '',
-      hasDownloadable: false,
       downloadableFile: null,
     });
   };
 
   const handleSavePost = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!formData.downloadableFile && dialogType === 'new') {
+      toast({
+        title: "Error",
+        description: "Debes adjuntar un archivo descargable para el artículo",
+        variant: "destructive"
+      });
+      return;
+    }
     
     if (dialogType === 'new') {
       const newPost = {
@@ -130,7 +128,7 @@ const AdminBlog = () => {
         readTime: `${Math.ceil(formData.content.length / 1000)} min`,
         slug: formData.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]+/g, ''),
         isPublished: false,
-        downloadableFile: formData.downloadableFile ? formData.downloadableFile.name : null
+        downloadableFile: formData.downloadableFile ? formData.downloadableFile.name : "archivo-requerido.pdf"
       };
       
       setPosts(prev => [newPost, ...prev]);
@@ -283,36 +281,21 @@ const AdminBlog = () => {
                       </div>
                       
                       <div className="space-y-2">
-                        <div className="flex items-center gap-2">
-                          <input 
-                            type="checkbox" 
-                            id="hasDownloadable" 
-                            name="hasDownloadable"
-                            checked={formData.hasDownloadable}
-                            onChange={handleCheckboxChange}
-                            className="rounded bg-raykevin-darker/50 border-white/20" 
+                        <Label htmlFor="downloadableFile">Archivo Descargable (PDF, DOC, etc.)</Label>
+                        <div className="mt-1 flex">
+                          <Input 
+                            id="downloadableFile" 
+                            name="downloadableFile" 
+                            type="file" 
+                            onChange={handleFileChange}
+                            className="bg-raykevin-darker/50"
+                            required={dialogType === 'new'}
                           />
-                          <Label htmlFor="hasDownloadable">Incluir archivo descargable</Label>
                         </div>
-                        
-                        {formData.hasDownloadable && (
-                          <div className="mt-2">
-                            <Label htmlFor="downloadableFile">Archivo</Label>
-                            <div className="mt-1 flex">
-                              <Input 
-                                id="downloadableFile" 
-                                name="downloadableFile" 
-                                type="file" 
-                                onChange={handleFileChange}
-                                className="bg-raykevin-darker/50" 
-                              />
-                            </div>
-                            {currentPost?.downloadableFile && !formData.downloadableFile && (
-                              <p className="text-xs text-white/70 mt-1">
-                                Archivo actual: {currentPost.downloadableFile}
-                              </p>
-                            )}
-                          </div>
+                        {currentPost?.downloadableFile && !formData.downloadableFile && (
+                          <p className="text-xs text-white/70 mt-1">
+                            Archivo actual: {currentPost.downloadableFile}
+                          </p>
                         )}
                       </div>
                     </div>
@@ -351,12 +334,10 @@ const AdminBlog = () => {
                       <h3 className="text-lg font-medium text-white mb-1">{post.title}</h3>
                       <p className="text-sm text-white/70 line-clamp-1 mb-2">{post.excerpt}</p>
                       
-                      {post.hasDownloadable && (
-                        <div className="flex items-center gap-1 text-xs text-raykevin-purple mb-2">
-                          <Download size={14} />
-                          <span>Incluye archivo descargable</span>
-                        </div>
-                      )}
+                      <div className="flex items-center gap-1 text-xs text-raykevin-purple mb-2">
+                        <Download size={14} />
+                        <span>{post.downloadableFile}</span>
+                      </div>
                     </div>
                     
                     <div className="flex flex-wrap gap-2 md:gap-1">
@@ -445,36 +426,20 @@ const AdminBlog = () => {
                               </div>
                               
                               <div className="space-y-2">
-                                <div className="flex items-center gap-2">
-                                  <input 
-                                    type="checkbox" 
-                                    id="hasDownloadable" 
-                                    name="hasDownloadable"
-                                    checked={formData.hasDownloadable}
-                                    onChange={handleCheckboxChange}
-                                    className="rounded bg-raykevin-darker/50 border-white/20" 
+                                <Label htmlFor="downloadableFile">Archivo Descargable (PDF, DOC, etc.)</Label>
+                                <div className="mt-1 flex">
+                                  <Input 
+                                    id="downloadableFile" 
+                                    name="downloadableFile" 
+                                    type="file" 
+                                    onChange={handleFileChange}
+                                    className="bg-raykevin-darker/50" 
                                   />
-                                  <Label htmlFor="hasDownloadable">Incluir archivo descargable</Label>
                                 </div>
-                                
-                                {formData.hasDownloadable && (
-                                  <div className="mt-2">
-                                    <Label htmlFor="downloadableFile">Archivo</Label>
-                                    <div className="mt-1 flex">
-                                      <Input 
-                                        id="downloadableFile" 
-                                        name="downloadableFile" 
-                                        type="file" 
-                                        onChange={handleFileChange}
-                                        className="bg-raykevin-darker/50" 
-                                      />
-                                    </div>
-                                    {currentPost?.downloadableFile && !formData.downloadableFile && (
-                                      <p className="text-xs text-white/70 mt-1">
-                                        Archivo actual: {currentPost.downloadableFile}
-                                      </p>
-                                    )}
-                                  </div>
+                                {currentPost?.downloadableFile && !formData.downloadableFile && (
+                                  <p className="text-xs text-white/70 mt-1">
+                                    Archivo actual: {currentPost.downloadableFile}
+                                  </p>
                                 )}
                               </div>
                             </div>

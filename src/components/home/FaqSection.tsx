@@ -58,7 +58,7 @@ const FaqSection = () => {
           <div className="max-w-5xl mx-auto">
             <Accordion type="single" collapsible className="w-full">
               {faqs.map((faq, index) => (
-                <AnimateOnScroll key={index} delay={index * 0.1}>
+                <AnimateOnScroll key={index}>
                   <AccordionItem value={`item-${index}`} className="border-b border-white/10 last:border-none">
                     <AccordionTrigger className="text-lg text-white font-medium py-5 hover:no-underline">
                       {faq.question}

@@ -128,7 +128,7 @@ const Header = () => {
               {/* Acceder link (new) */}
               <DropdownMenuItem asChild>
                 <Link 
-                  to="/auth" 
+                  to="/admin/login" 
                   className="text-white/80 hover:text-white hover:bg-white/5 cursor-pointer w-full flex items-center gap-2"
                   onClick={() => setMobileMenuOpen(false)}
                 >
@@ -181,7 +181,7 @@ const Header = () => {
             ))}
             
             <Link
-              to="/auth"
+              to="/admin/login"
               className="text-lg text-white/80 hover:text-white transition-colors flex items-center gap-2"
               onClick={toggleMobileMenu}
             >

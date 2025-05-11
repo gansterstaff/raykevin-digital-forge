@@ -23,14 +23,14 @@ const container = {
   }
 };
 
-const BlogPost = ({ title, excerpt, date, readTime, category, slug, hasDownloadable }: {
+const BlogPost = ({ title, excerpt, date, readTime, category, slug, downloadableFile }: {
   title: string;
   excerpt: string;
   date: string;
   readTime: string;
   category: string;
   slug: string;
-  hasDownloadable?: boolean;
+  downloadableFile: string;
 }) => {
   return (
     <motion.div variants={fadeIn}>
@@ -54,11 +54,16 @@ const BlogPost = ({ title, excerpt, date, readTime, category, slug, hasDownloada
               <Clock size={14} />
               <span>{readTime}</span>
             </div>
-            {hasDownloadable && (
-              <div className="flex items-center gap-1 text-raykevin-purple text-sm">
-                <Download size={14} />
-              </div>
-            )}
+            <div className="flex items-center gap-1 text-raykevin-purple text-sm">
+              <Download size={14} />
+              <a 
+                href={`/downloads/${downloadableFile}`} 
+                download
+                className="hover:underline"
+              >
+                Descargar
+              </a>
+            </div>
           </div>
           
           <Link 
@@ -83,7 +88,7 @@ const Blog = () => {
       readTime: "5 min",
       category: "Diseño UX",
       slug: "integrando-ux-desarrollo",
-      hasDownloadable: true
+      downloadableFile: "ux-dev-integration-guide.pdf"
     },
     {
       title: "Optimización de rendimiento web: Técnicas avanzadas para 2025",
@@ -91,7 +96,8 @@ const Blog = () => {
       date: "5 May, 2025",
       readTime: "8 min",
       category: "Desarrollo",
-      slug: "optimizacion-rendimiento-web-2025"
+      slug: "optimizacion-rendimiento-web-2025",
+      downloadableFile: "web-performance-2025.pdf"
     },
     {
       title: "El rol del contenido en la experiencia de usuario digital",
@@ -100,7 +106,7 @@ const Blog = () => {
       readTime: "6 min",
       category: "Contenido",
       slug: "rol-contenido-experiencia-usuario",
-      hasDownloadable: true
+      downloadableFile: "content-ux-checklist.pdf"
     },
     {
       title: "Implementando RAG en aplicaciones web modernas",
@@ -108,7 +114,8 @@ const Blog = () => {
       date: "20 Abr, 2025",
       readTime: "10 min",
       category: "IA",
-      slug: "implementando-rag-aplicaciones-web"
+      slug: "implementando-rag-aplicaciones-web",
+      downloadableFile: "rag-implementation-guide.pdf"
     },
     {
       title: "Diseño responsivo en 2025: Más allá del mobile-first",
@@ -116,7 +123,8 @@ const Blog = () => {
       date: "15 Abr, 2025",
       readTime: "7 min",
       category: "Diseño",
-      slug: "diseno-responsivo-2025"
+      slug: "diseno-responsivo-2025",
+      downloadableFile: "responsive-design-trends.pdf"
     },
     {
       title: "La importancia de la accesibilidad web en el desarrollo moderno",
@@ -124,7 +132,8 @@ const Blog = () => {
       date: "10 Abr, 2025",
       readTime: "9 min",
       category: "Accesibilidad",
-      slug: "importancia-accesibilidad-web"
+      slug: "importancia-accesibilidad-web",
+      downloadableFile: "accessibility-guidelines.pdf"
     },
   ];
 
