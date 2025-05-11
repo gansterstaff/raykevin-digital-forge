@@ -4,27 +4,27 @@ import { motion } from 'framer-motion';
 
 const HeroSection = () => {
   return (
-    <section className="min-h-screen flex flex-col justify-center text-center pt-16 pb-10">
+    <section className="min-h-screen flex flex-col justify-center text-center pt-24 pb-10">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-14"
+          className="mb-8"
         >
-          <div className="rounded-full bg-raykevin-purple/20 text-raykevin-purple px-4 py-1 text-sm inline-flex items-center justify-center mb-6 backdrop-blur-sm">
+          <div className="rounded-full bg-raykevin-purple/20 text-raykevin-purple px-4 py-1 text-sm inline-flex items-center justify-center mb-5 backdrop-blur-sm">
             ESTRATEGIA DIGITAL MULTIDISCIPLINARIA
           </div>
           
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-white mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-white mb-5">
             Desarrollo Digital <span className="text-raykevin-purple">Intuitivo</span> con Visión Estratégica
           </h1>
           
-          <p className="text-lg md:text-xl text-white/70 mb-10 max-w-4xl mx-auto">
+          <p className="text-lg md:text-xl text-white/70 mb-6 max-w-4xl mx-auto">
             Combino desarrollo full-stack, diseño UI/UX y estrategia de contenido para transformar ideas en experiencias digitales integrales que conectan y generan resultados.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-14">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
             <motion.a 
               href="https://wa.me/51921209325" 
               target="_blank" 

@@ -49,28 +49,25 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section id="services" className="section-padding bg-raykevin-darker">
-      <div className="container mx-auto px-4">
+    <section id="services" className="section-padding bg-raykevin-darker relative">
+      {/* Background image */}
+      <div className="absolute inset-0 w-full h-full">
+        <img 
+          src="/lovable-uploads/323ae7b6-75b2-4ab4-b2fd-95d2c27e3533.png" 
+          alt="Background" 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-raykevin-darker/70"></div>
+      </div>
+      
+      {/* Content */}
+      <div className="container mx-auto px-4 relative z-10">
         <AnimateOnScroll>
           <SectionTitle 
             title="Servicios Destacados" 
             subtitle="Soluciones digitales integrales que combinan tecnología, diseño y estrategia."
             centered
           />
-          
-          {/* New full-width image for services section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="w-full mb-10"
-          >
-            <img 
-              src="/lovable-uploads/323ae7b6-75b2-4ab4-b2fd-95d2c27e3533.png" 
-              alt="Servicios destacados" 
-              className="w-full h-auto rounded-2xl shadow-xl"
-            />
-          </motion.div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((service, index) => (

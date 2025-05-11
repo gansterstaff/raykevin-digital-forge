@@ -6,8 +6,18 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="bg-raykevin-darker py-12 mt-auto">
-      <div className="container mx-auto px-4">
+    <footer className="relative py-12 mt-auto">
+      {/* New background image */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <img 
+          src="/lovable-uploads/3c29a91e-8284-4f0f-af72-36b1b9a61e2e.png" 
+          alt="Footer background" 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-raykevin-darker/50 backdrop-blur-sm"></div>
+      </div>
+      
+      <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <Link to="/" className="text-2xl font-light tracking-tight text-white">
