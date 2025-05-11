@@ -4,12 +4,13 @@ import { motion } from 'framer-motion';
 
 const HeroSection = () => {
   return (
-    <section className="min-h-screen flex flex-col justify-center text-center pt-20 pb-10">
-      <div className="container mx-auto px-4 max-w-6xl">
+    <section className="min-h-screen flex flex-col justify-center text-center pt-16 pb-10">
+      <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
+          className="mb-14"
         >
           <div className="rounded-full bg-raykevin-purple/20 text-raykevin-purple px-4 py-1 text-sm inline-flex items-center justify-center mb-6 backdrop-blur-sm">
             ESTRATEGIA DIGITAL MULTIDISCIPLINARIA
@@ -19,11 +20,11 @@ const HeroSection = () => {
             Desarrollo Digital <span className="text-raykevin-purple">Intuitivo</span> con Visión Estratégica
           </h1>
           
-          <p className="text-lg md:text-xl text-white/70 mb-8">
+          <p className="text-lg md:text-xl text-white/70 mb-10 max-w-4xl mx-auto">
             Combino desarrollo full-stack, diseño UI/UX y estrategia de contenido para transformar ideas en experiencias digitales integrales que conectan y generan resultados.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-14">
             <motion.a 
               href="https://wa.me/51921209325" 
               target="_blank" 
@@ -47,21 +48,21 @@ const HeroSection = () => {
           </div>
         </motion.div>
         
-        {/* Dashboard Image - Adjusted for desktop */}
+        {/* Dashboard Image - Full width desktop version */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mx-auto relative"
+          className="relative mx-auto w-full"
         >
-          <div className="relative w-full max-w-[1200px] mx-auto">
+          <div className="relative w-full max-w-[1400px] mx-auto">
             <img 
               src="/lovable-uploads/2f4569f2-0274-45d7-9a52-ec45e87d47d8.png" 
               alt="Dashboard Interface" 
               className="w-full h-auto rounded-2xl shadow-2xl"
             />
-            <div className="absolute -bottom-8 -right-8 w-48 h-48 bg-raykevin-purple/30 rounded-full filter blur-3xl"></div>
-            <div className="absolute -top-8 -left-8 w-56 h-56 bg-raykevin-purple/20 rounded-full filter blur-3xl"></div>
+            <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-raykevin-purple/30 rounded-full filter blur-3xl"></div>
+            <div className="absolute -top-10 -left-10 w-72 h-72 bg-raykevin-purple/20 rounded-full filter blur-3xl"></div>
           </div>
         </motion.div>
       </div>
