@@ -46,6 +46,22 @@ const HeroSection = () => {
             </motion.a>
           </div>
         </motion.div>
+        
+        {/* Dashboard Image */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-12 md:mt-16 relative mx-auto max-w-5xl"
+        >
+          <img 
+            src="/lovable-uploads/2f4569f2-0274-45d7-9a52-ec45e87d47d8.png" 
+            alt="Dashboard Interface" 
+            className="w-full h-auto rounded-2xl shadow-2xl"
+          />
+          <div className="absolute -bottom-5 -right-5 w-24 h-24 bg-raykevin-purple/30 rounded-full filter blur-xl"></div>
+          <div className="absolute -top-5 -left-5 w-32 h-32 bg-raykevin-purple/20 rounded-full filter blur-xl"></div>
+        </motion.div>
       </div>
       
       {/* Abstract background elements */}

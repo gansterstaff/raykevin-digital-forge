@@ -25,7 +25,7 @@
     --muted: 240 5% 20%;
     --muted-foreground: 240 5% 65%;
 
-    --accent: 240 100% 75%;
+    --accent: 339 75% 37%; /* Changed to match #A31A53 */
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 62.8% 30.6%;
