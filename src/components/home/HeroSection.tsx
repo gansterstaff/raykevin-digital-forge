@@ -48,7 +48,7 @@ const HeroSection = () => {
           </div>
         </motion.div>
         
-        {/* Dashboard Image - Full width desktop version */}
+        {/* Dashboard Image - Full width desktop version without overlay gradients */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -61,8 +61,6 @@ const HeroSection = () => {
               alt="Dashboard Interface" 
               className="w-full h-auto rounded-2xl shadow-2xl"
             />
-            <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-raykevin-purple/30 rounded-full filter blur-3xl"></div>
-            <div className="absolute -top-10 -left-10 w-72 h-72 bg-raykevin-purple/20 rounded-full filter blur-3xl"></div>
           </div>
         </motion.div>
       </div>
