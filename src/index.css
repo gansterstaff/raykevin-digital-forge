@@ -105,3 +105,14 @@
 :focus-visible {
   @apply outline-2 outline-offset-2 outline-raykevin-purple;
 }
+
+/* Better background image handling */
+.bg-image-full {
+  @apply w-full h-full object-cover;
+  z-index: -1;
+}
+
+/* Better overflow handling for sections with background images */
+.overflow-hidden {
+  overflow: hidden;
+}

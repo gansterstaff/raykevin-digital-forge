@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 const HeroSection = () => {
   return (
-    <section className="min-h-screen flex flex-col justify-center text-center pt-20 md:pt-24 pb-10">
+    <section className="min-h-screen flex flex-col justify-center text-center pt-32 md:pt-36 pb-10">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -20,7 +20,7 @@ const HeroSection = () => {
             Desarrollo Digital <span className="text-raykevin-purple">Intuitivo</span> con Visión Estratégica
           </h1>
           
-          <p className="text-lg md:text-xl text-white/70 mb-8 max-w-4xl mx-auto">
+          <p className="text-lg md:text-xl text-white/70 mb-6 max-w-4xl mx-auto">
             Combino desarrollo full-stack, diseño UI/UX y estrategia de contenido para transformar ideas en experiencias digitales integrales que conectan y generan resultados.
           </p>
           
@@ -48,12 +48,12 @@ const HeroSection = () => {
           </div>
         </motion.div>
         
-        {/* Dashboard Image - Full width desktop version */}
+        {/* Dashboard Image */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="relative mx-auto w-full overflow-hidden"
+          className="relative mx-auto w-full overflow-hidden mt-4"
         >
           <div className="relative w-full max-w-[1400px] mx-auto">
             <img 
