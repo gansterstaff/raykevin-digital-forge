@@ -1,113 +1,140 @@
 
-import { useState } from 'react';
-import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import { Quote } from 'lucide-react';
 import SectionTitle from '../SectionTitle';
 import AnimateOnScroll from '../AnimateOnScroll';
-import GlassCard from '../GlassCard';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn } from '@/lib/utils';
 
 interface TestimonialProps {
   content: string;
   author: string;
   position: string;
+  image?: string;
+  colorAccent?: "default" | "light" | "dark";
 }
 
 const testimonials: TestimonialProps[] = [
   {
     content: "RayKevin transformó por completo nuestra presencia digital. Su enfoque multidisciplinario combinando desarrollo web, diseño UX y estrategia de contenido nos dio exactamente lo que necesitábamos.",
     author: "María González",
-    position: "CEO, InnovaTech"
+    position: "CEO, InnovaTech",
+    image: "/lovable-uploads/323ae7b6-75b2-4ab4-b2fd-95d2c27e3533.png",
+    colorAccent: "default"
   },
   {
-    content: "Trabajar con RayKevin ha sido una experiencia excepcional. No solo entregó un producto técnicamente impecable, sino que realmente entendió nuestras necesidades de negocio y las tradujo a una solución digital completa.",
+    content: "Trabajar con RayKevin ha sido una experiencia excepcional. No solo entregó un producto técnicamente impecable, sino que realmente entendió nuestras necesidades de negocio.",
     author: "Carlos Méndez",
-    position: "Director de Marketing, GrowthHub"
+    position: "Director de Marketing, GrowthHub",
+    colorAccent: "light"
   },
   {
     content: "Su capacidad para integrar diseño atractivo con funcionalidad robusta es incomparable. RayKevin no solo desarrolló nuestra plataforma, sino que nos guió en todo el proceso estratégico.",
     author: "Laura Sánchez",
-    position: "Fundadora, CreativeScope"
+    position: "Fundadora, CreativeScope",
+    image: "/lovable-uploads/3c29a91e-8284-4f0f-af72-36b1b9a61e2e.png",
+    colorAccent: "dark"
+  },
+  {
+    content: "Finalmente me siento en control de mi presencia digital. Gracias a RayKevin por hacer el proceso tan claro y efectivo.",
+    author: "Mark Julio",
+    position: "Emprendedor",
+    image: "/lovable-uploads/323ae7b6-75b2-4ab4-b2fd-95d2c27e3533.png",
+    colorAccent: "default"
+  },
+  {
+    content: "Simple, confiable y efectivo. Es perfecto para mi negocio y los clientes lo notan de inmediato.",
+    author: "Linda Kiely",
+    position: "Vendedora E-commerce",
+    image: "/lovable-uploads/3c29a91e-8284-4f0f-af72-36b1b9a61e2e.png",
+    colorAccent: "light"
+  },
+  {
+    content: "Esta herramienta nos ha ahorrado horas cada mes. ¡Altamente recomendado para cualquier negocio que quiera destacar!",
+    author: "James Luis",
+    position: "Fundador Startup",
+    colorAccent: "dark"
   }
 ];
 
 const TestimonialsSection = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex === 0 ? testimonials.length - 1 : prevIndex - 1
-    );
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => 
-      prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
   return (
-    <section id="testimonials" className="section-padding bg-raykevin-darker">
-      <div className="container mx-auto px-4">
+    <section id="testimonials" className="section-padding relative overflow-hidden bg-raykevin-darker">
+      {/* Background image */}
+      <div className="absolute inset-0 w-full h-full z-0 opacity-20 pointer-events-none">
+        <img 
+          src="/lovable-uploads/e6102a9a-9ee2-442f-80b7-7fcf08621fae.png" 
+          alt="Background gradient" 
+          className="w-full h-full object-cover"
+        />
+      </div>
+      
+      <div className="container mx-auto px-4 relative z-10">
         <AnimateOnScroll>
-          <SectionTitle 
-            title="Lo que dicen mis clientes" 
-            subtitle="Experiencias de quienes han confiado en mis servicios para sus proyectos digitales."
-            centered
-          />
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-light tracking-tight text-white mb-5">
+              What our clients are saying
+            </h2>
+            <p className="text-lg text-white/70 max-w-2xl mx-auto">
+              Our financial management platform is transforming the way people manage their money. Here's what some of our users have to say about their experience.
+            </p>
+          </div>
           
-          <div className="max-w-3xl mx-auto relative">
-            <GlassCard className="py-8 px-6 md:px-10 text-center">
-              <Quote size={48} className="mx-auto text-raykevin-purple opacity-30 mb-4" />
-              
-              <p className="text-white text-lg md:text-xl mb-8">
-                "{testimonials[currentIndex].content}"
-              </p>
-              
-              <div>
-                <h4 className="text-white font-medium">
-                  {testimonials[currentIndex].author}
-                </h4>
-                <p className="text-white/50 text-sm">
-                  {testimonials[currentIndex].position}
-                </p>
-              </div>
-            </GlassCard>
-            
-            <div className="flex justify-center mt-8 gap-2">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-all ${
-                    currentIndex === index ? 'bg-raykevin-purple' : 'bg-white/20'
-                  }`}
-                  aria-label={`Go to testimonial ${index + 1}`}
-                />
-              ))}
-            </div>
-            
-            <div className="absolute top-1/2 -translate-y-1/2 left-0 -ml-4 md:-ml-8">
-              <button
-                onClick={handlePrev}
-                className="w-10 h-10 rounded-full bg-raykevin-darker/80 border border-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors"
-                aria-label="Previous testimonial"
-              >
-                <ChevronLeft size={20} />
-              </button>
-            </div>
-            
-            <div className="absolute top-1/2 -translate-y-1/2 right-0 -mr-4 md:-mr-8">
-              <button
-                onClick={handleNext}
-                className="w-10 h-10 rounded-full bg-raykevin-darker/80 border border-white/10 flex items-center justify-center text-white/70 hover:text-white transition-colors"
-                aria-label="Next testimonial"
-              >
-                <ChevronRight size={20} />
-              </button>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {testimonials.map((testimonial, index) => (
+              <TestimonialCard key={index} testimonial={testimonial} />
+            ))}
           </div>
         </AnimateOnScroll>
       </div>
     </section>
+  );
+};
+
+const TestimonialCard = ({ testimonial }: { testimonial: TestimonialProps }) => {
+  const cardBgColor = () => {
+    switch (testimonial.colorAccent) {
+      case "light":
+        return "bg-raykevin-purple/20";
+      case "dark":
+        return "bg-raykevin-purple/40";
+      default:
+        return "bg-raykevin-purple/30";
+    }
+  };
+
+  return (
+    <div className={cn(
+      "rounded-3xl p-6 backdrop-blur-md min-h-[280px] flex flex-col justify-between transition-all duration-300 hover:translate-y-[-5px]",
+      cardBgColor()
+    )}>
+      <div>
+        <Quote className="text-raykevin-purple mb-4" size={32} />
+        <p className="text-white mb-6 text-sm md:text-base">
+          "{testimonial.content}"
+        </p>
+      </div>
+      
+      <div className="flex items-center">
+        {testimonial.image ? (
+          <Avatar className="h-12 w-12 border-2 border-white/20">
+            <AvatarImage src={testimonial.image} alt={testimonial.author} />
+            <AvatarFallback>{testimonial.author.charAt(0)}</AvatarFallback>
+          </Avatar>
+        ) : (
+          <Avatar className="h-12 w-12 bg-raykevin-purple/50 border-2 border-white/20">
+            <AvatarFallback>{testimonial.author.charAt(0)}</AvatarFallback>
+          </Avatar>
+        )}
+        <div className="ml-3">
+          <h4 className="text-white font-medium text-sm md:text-base">
+            {testimonial.author}
+          </h4>
+          <p className="text-white/50 text-xs md:text-sm">
+            {testimonial.position}
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };
 

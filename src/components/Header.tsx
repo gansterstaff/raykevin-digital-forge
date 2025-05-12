@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, MessageCircle, LogIn } from 'lucide-react';
@@ -54,12 +53,12 @@ const Header = () => {
         isScrolled ? 'blur-nav' : 'bg-transparent'
       } overflow-hidden`}
     >
-      {/* Background image in top left corner */}
-      <div className="absolute top-0 left-0 w-full h-[300%] -z-10 pointer-events-none">
+      {/* Background image in top right corner */}
+      <div className="absolute top-0 right-0 w-full h-[300%] -z-10 pointer-events-none">
         <img 
           src="/lovable-uploads/e6102a9a-9ee2-442f-80b7-7fcf08621fae.png" 
           alt="Background gradient" 
-          className="w-full h-full object-cover opacity-30"
+          className="w-full h-full object-cover opacity-30 origin-top-right"
         />
       </div>
 

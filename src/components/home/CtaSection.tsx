@@ -6,12 +6,21 @@ import { motion } from 'framer-motion';
 const CtaSection = () => {
   return (
     <section className="section-padding relative overflow-hidden">
-      {/* Background image */}
+      {/* Background images */}
       <div className="absolute inset-0 w-full h-full z-0">
         <img 
           src="/lovable-uploads/e6102a9a-9ee2-442f-80b7-7fcf08621fae.png" 
           alt="Background gradient" 
           className="w-full h-full object-cover object-center opacity-60"
+        />
+      </div>
+      
+      {/* Left corner background image */}
+      <div className="absolute top-0 left-0 w-2/3 h-full z-0">
+        <img 
+          src="/lovable-uploads/086c2af4-48ae-4728-8291-c5e628e12222.png" 
+          alt="Corner decoration" 
+          className="w-full h-full object-cover object-left opacity-40"
         />
       </div>
       

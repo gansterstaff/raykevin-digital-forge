@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -78,6 +77,23 @@
   /* New styles for improved accessibility */
   .onboarding-card {
     @apply p-6 bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl shadow-neuro-sm transition-all hover:shadow-neuro;
+  }
+  
+  /* New styles for testimonial cards */
+  .testimonial-card {
+    @apply p-6 rounded-3xl backdrop-blur-md transition-all duration-300 hover:-translate-y-1;
+  }
+  
+  .testimonial-card-default {
+    @apply bg-raykevin-purple/30;
+  }
+  
+  .testimonial-card-light {
+    @apply bg-raykevin-purple/20;
+  }
+  
+  .testimonial-card-dark {
+    @apply bg-raykevin-purple/40;
   }
 }
 
