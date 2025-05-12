@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 const HeroSection = () => {
   return (
-    <section className="min-h-screen flex flex-col justify-center text-center pt-24 pb-10">
+    <section className="min-h-screen flex flex-col justify-center text-center pt-20 md:pt-24 pb-10">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -20,26 +20,26 @@ const HeroSection = () => {
             Desarrollo Digital <span className="text-raykevin-purple">Intuitivo</span> con Visión Estratégica
           </h1>
           
-          <p className="text-lg md:text-xl text-white/70 mb-6 max-w-4xl mx-auto">
+          <p className="text-lg md:text-xl text-white/70 mb-8 max-w-4xl mx-auto">
             Combino desarrollo full-stack, diseño UI/UX y estrategia de contenido para transformar ideas en experiencias digitales integrales que conectan y generan resultados.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-10">
             <motion.a 
               href="https://wa.me/51921209325" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="neuro-button inline-flex items-center justify-center gap-2 px-8 py-3 text-base font-medium text-white hover:text-raykevin-purple"
+              className="rounded-full bg-black/30 backdrop-blur-lg border border-white/10 hover:border-white/20 inline-flex items-center justify-center gap-3 px-8 py-4 text-lg font-medium text-white shadow-neuro hover:shadow-neuro-sm transition-all duration-300"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
             >
-              <MessageCircle size={18} />
+              <MessageCircle size={22} />
               <span>Hablemos de tu proyecto</span>
             </motion.a>
             
             <motion.a 
               href="#services" 
-              className="inline-flex items-center justify-center px-8 py-3 text-base font-medium border border-white/20 rounded-lg bg-transparent hover:bg-white/5 text-white transition-all"
+              className="rounded-full bg-white/5 backdrop-blur-lg border border-white/10 hover:border-white/20 inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white shadow-neuro-sm hover:shadow-neuro transition-all duration-300"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -48,7 +48,7 @@ const HeroSection = () => {
           </div>
         </motion.div>
         
-        {/* Dashboard Image - Full width desktop version without overlay gradients */}
+        {/* Dashboard Image - Full width desktop version */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
