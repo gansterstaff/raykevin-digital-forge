@@ -4,13 +4,15 @@ import { motion } from 'framer-motion';
 
 const HeroSection = () => {
   return (
-    <section className="min-h-screen flex flex-col justify-center text-center pt-32 md:pt-36 pb-10">
+    <section className="min-h-screen flex flex-col justify-center text-center pt-32 md:pt-36 pb-10 relative overflow-visible">
+      {/* La imagen de fondo viene desde el Header y se extiende aquí */}
+      
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="mb-8"
+          className="mb-8 relative z-10"
         >
           <div className="rounded-full bg-raykevin-purple/20 text-raykevin-purple px-4 py-1 text-sm inline-flex items-center justify-center mb-5 backdrop-blur-sm">
             ESTRATEGIA DIGITAL MULTIDISCIPLINARIA
@@ -53,7 +55,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="relative mx-auto w-full overflow-hidden mt-4"
+          className="relative mx-auto w-full overflow-hidden mt-4 z-10"
         >
           <div className="relative w-full max-w-[1400px] mx-auto">
             <img 

@@ -59,23 +59,14 @@ const testimonials: TestimonialProps[] = [
 const TestimonialsSection = () => {
   return (
     <section id="testimonials" className="section-padding relative overflow-hidden bg-raykevin-darker">
-      {/* Background image */}
-      <div className="absolute inset-0 w-full h-full z-0 opacity-20 pointer-events-none">
-        <img 
-          src="/lovable-uploads/e6102a9a-9ee2-442f-80b7-7fcf08621fae.png" 
-          alt="Background gradient" 
-          className="w-full h-full object-cover"
-        />
-      </div>
-      
       <div className="container mx-auto px-4 relative z-10">
         <AnimateOnScroll>
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-light tracking-tight text-white mb-5">
-              What our clients are saying
+              Lo que dicen mis clientes
             </h2>
             <p className="text-lg text-white/70 max-w-2xl mx-auto">
-              Our financial management platform is transforming the way people manage their money. Here's what some of our users have to say about their experience.
+              Mi enfoque multidisciplinario está transformando la manera en que las empresas gestionan su presencia digital. Esto es lo que algunos de mis clientes dicen sobre su experiencia.
             </p>
           </div>
           
