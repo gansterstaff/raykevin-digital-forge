@@ -49,9 +49,9 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section id="services" className="section-padding bg-raykevin-darker relative">
-      {/* Background image */}
-      <div className="absolute inset-0 w-full h-full">
+    <section id="services" className="section-padding bg-raykevin-darker relative overflow-hidden">
+      {/* Background image - improved z-index and overflow handling */}
+      <div className="absolute inset-0 w-full h-full z-0">
         <img 
           src="/lovable-uploads/323ae7b6-75b2-4ab4-b2fd-95d2c27e3533.png" 
           alt="Background" 

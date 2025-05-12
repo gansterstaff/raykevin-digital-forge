@@ -6,8 +6,8 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="relative py-12 mt-auto">
-      {/* New background image */}
+    <footer className="relative py-12 mt-auto overflow-hidden">
+      {/* Background image - improved z-index and overflow handling */}
       <div className="absolute inset-0 w-full h-full z-0">
         <img 
           src="/lovable-uploads/3c29a91e-8284-4f0f-af72-36b1b9a61e2e.png" 

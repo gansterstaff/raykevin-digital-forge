@@ -53,7 +53,7 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="relative mx-auto w-full"
+          className="relative mx-auto w-full overflow-hidden"
         >
           <div className="relative w-full max-w-[1400px] mx-auto">
             <img 
