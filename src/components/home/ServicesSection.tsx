@@ -49,13 +49,13 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section id="services" className="section-padding bg-raykevin-darker relative overflow-hidden">
+    <section id="services" className="section-padding bg-black relative overflow-hidden">
       {/* Background image - improved z-index and overflow handling */}
       <div className="absolute inset-0 w-full h-full z-0">
         <img 
           src="/lovable-uploads/323ae7b6-75b2-4ab4-b2fd-95d2c27e3533.png" 
           alt="Background" 
-          className="w-full h-full object-cover"
+          className="w-full h-full object-fill"
         />
         <div className="absolute inset-0 bg-raykevin-darker/70"></div>
       </div>

@@ -54,23 +54,6 @@ const Header = () => {
         isScrolled ? 'blur-nav' : 'bg-transparent'
       } overflow-visible`}
     >
-      {/* Background image in top right corner - now with higher z-index */}
-      <div className="absolute top-0 right-0 w-full h-[300%] pointer-events-none" style={{ zIndex: -1 }}>
-        <img 
-          src="/lovable-uploads/e6102a9a-9ee2-442f-80b7-7fcf08621fae.png" 
-          alt="Background gradient" 
-          className="w-full h-full object-cover opacity-30 origin-top-right"
-        />
-      </div>
-
-      {/* Left corner background image */}
-      <div className="absolute top-0 left-0 w-2/3 h-full pointer-events-none" style={{ zIndex: -1 }}>
-        <img 
-          src="/lovable-uploads/086c2af4-48ae-4728-8291-c5e628e12222.png" 
-          alt="Corner decoration" 
-          className="w-full h-full object-cover object-left opacity-40"
-        />
-      </div>
 
       <div className="container mx-auto">
         <div className="flex items-center justify-between">

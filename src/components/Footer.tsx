@@ -12,7 +12,7 @@ const Footer = () => {
         <img 
           src="/lovable-uploads/3c29a91e-8284-4f0f-af72-36b1b9a61e2e.png" 
           alt="Footer background" 
-          className="w-full h-full object-cover"
+          className="w-full h-full object-fill"
         />
         <div className="absolute inset-0 bg-raykevin-darker/50 backdrop-blur-sm"></div>
       </div>

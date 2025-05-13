@@ -1,10 +1,9 @@
-
 import { Quote } from 'lucide-react';
 import SectionTitle from '../SectionTitle';
 import AnimateOnScroll from '../AnimateOnScroll';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { cn } from '@/lib/utils';
 
+import GlassCard from '../GlassCard';
 interface TestimonialProps {
   content: string;
   author: string;
@@ -58,7 +57,7 @@ const testimonials: TestimonialProps[] = [
 
 const TestimonialsSection = () => {
   return (
-    <section id="testimonials" className="section-padding relative overflow-hidden bg-raykevin-darker">
+    <section id="testimonials" className="section-padding relative overflow-hidden bg-black">
       <div className="container mx-auto px-4 relative z-10">
         <AnimateOnScroll>
           <div className="text-center mb-12">
@@ -69,7 +68,7 @@ const TestimonialsSection = () => {
               Mi enfoque multidisciplinario está transformando la manera en que las empresas gestionan su presencia digital. Esto es lo que algunos de mis clientes dicen sobre su experiencia.
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {testimonials.map((testimonial, index) => (
               <TestimonialCard key={index} testimonial={testimonial} />
@@ -82,29 +81,15 @@ const TestimonialsSection = () => {
 };
 
 const TestimonialCard = ({ testimonial }: { testimonial: TestimonialProps }) => {
-  const cardBgColor = () => {
-    switch (testimonial.colorAccent) {
-      case "light":
-        return "bg-raykevin-purple/20";
-      case "dark":
-        return "bg-raykevin-purple/40";
-      default:
-        return "bg-raykevin-purple/30";
-    }
-  };
-
   return (
-    <div className={cn(
-      "rounded-3xl p-6 backdrop-blur-md min-h-[280px] flex flex-col justify-between transition-all duration-300 hover:translate-y-[-5px]",
-      cardBgColor()
-    )}>
+    <GlassCard className="rounded-3xl min-h-[280px] flex flex-col justify-between transition-all duration-300 hover:translate-y-[-5px]">
       <div>
         <Quote className="text-raykevin-purple mb-4" size={32} />
         <p className="text-white mb-6 text-sm md:text-base">
           "{testimonial.content}"
         </p>
       </div>
-      
+
       <div className="flex items-center">
         {testimonial.image ? (
           <Avatar className="h-12 w-12 border-2 border-white/20">
@@ -125,7 +110,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: TestimonialProps }) => 
           </p>
         </div>
       </div>
-    </div>
+    </GlassCard>
   );
 };
 
