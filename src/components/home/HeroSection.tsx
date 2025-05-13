@@ -60,15 +60,15 @@ const HeroSection = () => {
           </div>
         </motion.div>
         
-        {/* Dashboard Image - Improved positioning closer to buttons */}
+        {/* Dashboard Image - Significantly raised position by 80px on all devices */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           className="relative mx-auto w-full overflow-hidden mt-2 mb-0 z-10"
           style={{
-            transform: isMobile ? 'translateY(-70px)' : 'translateY(-220px)',
-            marginBottom: isMobile ? '-70px' : '-220px'
+            transform: isMobile ? 'translateY(-100px)' : 'translateY(-300px)',
+            marginBottom: isMobile ? '-100px' : '-300px'
           }}
         >
           <div className="relative w-full max-w-[1400px] mx-auto">
