@@ -32,7 +32,7 @@ const HeroSection = () => {
             Desarrollo Digital <span className="text-raykevin-purple">Intuitivo</span> con Visión Estratégica
           </h1>
           
-          <p className="text-base sm:text-lg md:text-xl text-white/70 mb-8 md:mb-16 max-w-4xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-white/70 mb-8 md:mb-12 max-w-4xl mx-auto">
             Combino desarrollo full-stack, diseño UI/UX y estrategia de contenido para transformar ideas en experiencias digitales integrales que conectan y generan resultados.
           </p>
           
@@ -60,15 +60,15 @@ const HeroSection = () => {
           </div>
         </motion.div>
         
-        {/* Dashboard Image - Improved responsiveness */}
+        {/* Dashboard Image - Improved responsiveness and positioning */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="relative mx-auto w-full overflow-hidden mt-8 sm:mt-4 md:mt-0 mb-0 z-10"
+          className="relative mx-auto w-full overflow-hidden mt-4 sm:mt-0 mb-0 z-10"
           style={{
-            transform: isMobile ? 'translateY(-20px)' : 'translateY(-120px)',
-            marginBottom: isMobile ? '-20px' : '-120px'
+            transform: isMobile ? 'translateY(-40px)' : 'translateY(-180px)',
+            marginBottom: isMobile ? '-40px' : '-180px'
           }}
         >
           <div className="relative w-full max-w-[1400px] mx-auto">
