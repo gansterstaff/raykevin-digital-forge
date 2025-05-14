@@ -23,6 +23,7 @@ const ProjectCardsSection = () => {
   const [expandedCard, setExpandedCard] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Añadimos un proyecto más para tener 5 en total
   const projects: Project[] = [
     {
       id: 1,
@@ -72,6 +73,18 @@ const ProjectCardsSection = () => {
       },
       color: "from-raykevin-purple/30 to-raykevin-purple-dark/50"
     },
+    {
+      id: 5,
+      title: "Sistema de Citas",
+      date: "Abril 2024",
+      tags: ["React", "Redux", "Firebase"],
+      author: {
+        name: "Health App",
+        avatar: "/lovable-uploads/Perfil Fabricio.jpg",
+        fallback: "HA",
+      },
+      color: "from-raykevin-purple-light/25 to-raykevin-purple/45"
+    },
   ];
 
   // Handle click outside to close expanded card
@@ -108,21 +121,21 @@ const ProjectCardsSection = () => {
           </div>
           
           {/* Right panel with stacked cards */}
-          <div className="md:w-2/3 lg:w-3/4 relative" ref={containerRef}>
-            <div className="h-[400px] relative">
+          <div className="md:w-2/3 lg:w-3/4 relative pl-2" ref={containerRef}>
+            <div className="h-[350px] relative">
               {projects.map((project, index) => {
                 // Calculate position based on index and whether the card is expanded
                 const isExpanded = expandedCard === project.id;
                 const zIndex = projects.length - index;
                 
-                // Calcular el desplazamiento horizontal para cada tarjeta
-                const offsetX = index * 60; // Más desplazamiento horizontal entre tarjetas
+                // Mayor desplazamiento horizontal entre tarjetas (80px en lugar de 60px)
+                const offsetX = index * 80;
                 
                 return (
                   <motion.div
                     key={project.id}
                     className={cn(
-                      "absolute top-0 left-0 w-[300px] h-[320px]", // Ancho fijo para cada tarjeta
+                      "absolute top-0 left-0 w-[280px] h-[340px]", // Ajustamos altura para igualar a la card principal
                       "glass-card border border-white/10 backdrop-blur-lg overflow-hidden cursor-pointer",
                       `bg-gradient-to-br ${project.color}`
                     )}
@@ -136,14 +149,14 @@ const ProjectCardsSection = () => {
                       x: isExpanded ? -40 : 0,
                       // Al expandir, elimina la opacidad y escala reducida
                       scale: isExpanded ? 1.05 : 1 - (index * 0.02),
-                      opacity: isExpanded ? 1 : 1 - (index * 0.05),
+                      opacity: isExpanded ? 1 : 1 - (index * 0.03), // Menos reducción de opacidad
                       // Añadir elevación en Z al expandir
                       zIndex: isExpanded ? 100 : zIndex,
                       transition: { duration: 0.4, ease: "easeOut" }
                     }}
                     initial={{
                       scale: 1 - (index * 0.02),
-                      opacity: 1 - (index * 0.05)
+                      opacity: 1 - (index * 0.03)
                     }}
                     onClick={() => setExpandedCard(project.id === expandedCard ? null : project.id)}
                   >
