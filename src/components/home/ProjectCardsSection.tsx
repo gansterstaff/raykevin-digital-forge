@@ -115,32 +115,37 @@ const ProjectCardsSection = () => {
                 const isExpanded = expandedCard === project.id;
                 const zIndex = projects.length - index;
                 
+                // Calcular el desplazamiento horizontal para cada tarjeta
+                const offsetX = index * 60; // Más desplazamiento horizontal entre tarjetas
+                
                 return (
                   <motion.div
                     key={project.id}
                     className={cn(
-                      "absolute top-0 right-0 w-[90%] md:w-[70%] lg:w-[65%] h-[320px]",
+                      "absolute top-0 left-0 w-[300px] h-[320px]", // Ancho fijo para cada tarjeta
                       "glass-card border border-white/10 backdrop-blur-lg overflow-hidden cursor-pointer",
                       `bg-gradient-to-br ${project.color}`
                     )}
                     style={{ 
                       zIndex,
-                      right: `${index * 20}px`,
+                      // Posicionamiento inicial - cada tarjeta está más a la derecha que la anterior
+                      left: `${offsetX}px`,
                     }}
                     animate={{
-                      x: isExpanded ? `-${index * 60}px` : `${index * 10}px`,
-                      y: isExpanded ? 0 : `${index * 10}px`,
-                      scale: isExpanded ? 1 : 0.97 - (index * 0.02),
-                      opacity: isExpanded ? 1 : 1 - (index * 0.1),
+                      // Al expandir, mueve la tarjeta hacia la izquierda para destacarla
+                      x: isExpanded ? -40 : 0,
+                      // Al expandir, elimina la opacidad y escala reducida
+                      scale: isExpanded ? 1.05 : 1 - (index * 0.02),
+                      opacity: isExpanded ? 1 : 1 - (index * 0.05),
+                      // Añadir elevación en Z al expandir
+                      zIndex: isExpanded ? 100 : zIndex,
                       transition: { duration: 0.4, ease: "easeOut" }
                     }}
                     initial={{
-                      x: `${index * 10}px`,
-                      y: `${index * 10}px`,
-                      scale: 0.97 - (index * 0.02),
-                      opacity: 1 - (index * 0.1)
+                      scale: 1 - (index * 0.02),
+                      opacity: 1 - (index * 0.05)
                     }}
-                    onClick={() => setExpandedCard(project.id)}
+                    onClick={() => setExpandedCard(project.id === expandedCard ? null : project.id)}
                   >
                     <div className="p-6 h-full flex flex-col">
                       <div className="flex items-center gap-2 mb-2">
