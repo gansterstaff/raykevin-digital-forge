@@ -115,7 +115,7 @@ const ProjectCardsSection = () => {
                 className="mb-6"
               />
               <p className="text-sm text-white/60 mt-auto">
-                Powered by Kevin Fabricio
+                Director Creativo Kevin Fabricio
               </p>
             </div>
           </div>
@@ -129,7 +129,7 @@ const ProjectCardsSection = () => {
                 const zIndex = projects.length - index;
                 
                 // Mayor desplazamiento horizontal entre tarjetas (80px en lugar de 60px)
-                const offsetX = index * 80;
+                const offsetX = index * 190;
                 
                 return (
                   <motion.div
