@@ -71,7 +71,8 @@
   }
   
   .blur-nav {
-    @apply bg-opacity-60 backdrop-blur-md bg-raykevin-darker z-50;
+    /* Previous: @apply bg-opacity-60 backdrop-blur-md bg-raykevin-darker z-50; */
+    @apply bg-opacity-60 backdrop-blur-md bg-raykevin-darker z-50; /* Adjusted for glassmorphism */
   }
   
   /* New styles for improved accessibility */

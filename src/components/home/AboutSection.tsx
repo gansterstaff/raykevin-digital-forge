@@ -83,7 +83,7 @@ const AboutSection = () => {
                 <div className="absolute -top-4 -left-4 w-64 h-64 bg-raykevin-purple/10 rounded-full blur-3xl"></div>
                 <div className="relative z-10 overflow-hidden rounded-xl border border-white/10 shadow-lg h-[90%] w-[90%] mx-auto">
                   <img 
-                    src="/placeholder.svg" 
+                    src="/lovable-uploads/Perfil Fabricio.jpg" 
                     alt="Kevin Ludeña" 
                     className="w-full h-full object-cover"
                   />

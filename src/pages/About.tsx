@@ -37,7 +37,7 @@ const About = () => {
                   <div className="w-full md:w-1/3">
                     <div className="aspect-square rounded-full overflow-hidden border-4 border-raykevin-purple/30">
                       <img 
-                        src="/placeholder.svg" 
+                        src="/lovable-uploads/Perfil Fabricio.jpg" 
                         alt="RayKevin" 
                         className="w-full h-full object-cover"
                       />
