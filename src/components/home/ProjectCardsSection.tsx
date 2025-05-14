@@ -114,13 +114,12 @@ const ProjectCardsSection = () => {
                 // Calculate position based on index and whether the card is expanded
                 const isExpanded = expandedCard === project.id;
                 const zIndex = projects.length - index;
-                const translateX = isExpanded ? 0 : (index * 10);
                 
                 return (
                   <motion.div
                     key={project.id}
                     className={cn(
-                      "absolute top-0 right-0 w-[90%] md:w-[85%] lg:w-[80%] h-[320px]",
+                      "absolute top-0 right-0 w-[90%] md:w-[70%] lg:w-[65%] h-[320px]",
                       "glass-card border border-white/10 backdrop-blur-lg overflow-hidden cursor-pointer",
                       `bg-gradient-to-br ${project.color}`
                     )}
@@ -129,10 +128,17 @@ const ProjectCardsSection = () => {
                       right: `${index * 20}px`,
                     }}
                     animate={{
-                      x: isExpanded ? `-${index * 60}px` : `${translateX}px`,
+                      x: isExpanded ? `-${index * 60}px` : `${index * 10}px`,
+                      y: isExpanded ? 0 : `${index * 10}px`,
                       scale: isExpanded ? 1 : 0.97 - (index * 0.02),
                       opacity: isExpanded ? 1 : 1 - (index * 0.1),
                       transition: { duration: 0.4, ease: "easeOut" }
+                    }}
+                    initial={{
+                      x: `${index * 10}px`,
+                      y: `${index * 10}px`,
+                      scale: 0.97 - (index * 0.02),
+                      opacity: 1 - (index * 0.1)
                     }}
                     onClick={() => setExpandedCard(project.id)}
                   >
