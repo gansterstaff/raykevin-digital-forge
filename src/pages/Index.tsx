@@ -8,6 +8,7 @@ import ApproachSection from '@/components/home/ApproachSection';
 import TestimonialsSection from '@/components/home/TestimonialsSection';
 import FaqSection from '@/components/home/FaqSection';
 import CtaSection from '@/components/home/CtaSection';
+import InteractiveCardsSection from '@/components/home/InteractiveCardsSection';
 
 const Index = () => {
   return (
@@ -16,6 +17,7 @@ const Index = () => {
       
       <main>
         <HeroSection />
+        <InteractiveCardsSection />
         <AboutSection />
         <ServicesSection />
         <ApproachSection />

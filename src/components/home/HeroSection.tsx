@@ -62,10 +62,10 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: -20 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="relative mx-0 w-full overflow-hidden mt-[0px]  mb-0 z-10"
+          className="relative mx-0 w-full overflow-hidden mt-[0px] mb-0 z-10"
           style={{
-            transform: isMobile ? 'translateY(0px)' : 'translateY(300px)',
-            marginBottom: isMobile ? '-20px' : '-20px'
+            transform: isMobile ? 'translateY(-20px)' : 'translateY(80px)',
+            marginBottom: isMobile ? '-20px' : '-100px'
           }}
         >
           <div className="relative w-full max-w-[1400px] mx-auto">
@@ -78,24 +78,6 @@ const HeroSection = () => {
         </motion.div>
       </div>
       
-      {/* Dashboard Image - Significantly raised position px on all devices 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="relative mx-auto w-full mt-[-80px] mb-[10px] pb-[0px] z-10"
-        >
-          <div className="relative w-full max-w-[1400px] mx-auto">
-            <img
-              src="/lovable-uploads/2f4569f2-0274-45d7-9a52-ec45e87d47d8.png"
-              alt="Dashboard Interface"
-              className="w-full h-auto rounded-xl sm:rounded-2xl shadow-2xl"
-              style={{ transform: 'translateY(40px)' }}
-            />
-          </div>
-        </motion.div>
-      </div>*/}
-      
       {/* Abstract background elements */}
       <div className="absolute top-20 left-10 w-64 h-64 bg-raykevin-purple/10 rounded-full filter blur-3xl"></div>
       <div className="absolute bottom-20 right-10 w-80 h-80 bg-raykevin-purple/5 rounded-full filter blur-3xl"></div>
@@ -104,4 +86,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
