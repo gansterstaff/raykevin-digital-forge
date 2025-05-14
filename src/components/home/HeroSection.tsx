@@ -64,8 +64,8 @@ const HeroSection = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="relative mx-0 w-full overflow-hidden mt-[0px] mb-0 z-10"
           style={{
-            transform: isMobile ? 'translateY(-20px)' : 'translateY(80px)',
-            marginBottom: isMobile ? '-20px' : '-100px'
+            transform: isMobile ? 'translateY(-60px)' : 'translateY(0px)',
+            marginBottom: isMobile ? '-60px' : '-40px' 
           }}
         >
           <div className="relative w-full max-w-[1400px] mx-auto">

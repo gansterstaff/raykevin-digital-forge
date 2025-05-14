@@ -9,6 +9,7 @@ import TestimonialsSection from '@/components/home/TestimonialsSection';
 import FaqSection from '@/components/home/FaqSection';
 import CtaSection from '@/components/home/CtaSection';
 import InteractiveCardsSection from '@/components/home/InteractiveCardsSection';
+import ProjectCardsSection from '@/components/home/ProjectCardsSection';
 
 const Index = () => {
   return (
@@ -17,8 +18,9 @@ const Index = () => {
       
       <main>
         <HeroSection />
-        <InteractiveCardsSection />
+        <ProjectCardsSection />
         <AboutSection />
+        <InteractiveCardsSection />
         <ServicesSection />
         <ApproachSection />
         <TestimonialsSection />
