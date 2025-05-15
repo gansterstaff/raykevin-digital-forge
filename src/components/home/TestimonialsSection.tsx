@@ -1,9 +1,17 @@
+
 import { Quote } from 'lucide-react';
 import SectionTitle from '../SectionTitle';
 import AnimateOnScroll from '../AnimateOnScroll';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import GlassCard from '../GlassCard';
+
 interface TestimonialProps {
   content: string;
   author: string;
@@ -69,11 +77,25 @@ const TestimonialsSection = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {testimonials.map((testimonial, index) => (
-              <TestimonialCard key={index} testimonial={testimonial} />
-            ))}
-          </div>
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="px-4">
+              {testimonials.map((testimonial, index) => (
+                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                  <TestimonialCard testimonial={testimonial} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="flex justify-center mt-8 gap-4">
+              <CarouselPrevious className="relative inset-0 translate-y-0 bg-white/10 hover:bg-white/20 border-white/20" />
+              <CarouselNext className="relative inset-0 translate-y-0 bg-white/10 hover:bg-white/20 border-white/20" />
+            </div>
+          </Carousel>
         </AnimateOnScroll>
       </div>
     </section>
