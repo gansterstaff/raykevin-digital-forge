@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { EyeIcon, EyeOffIcon, ArrowLeft, CheckCircle, XCircle } from 'lucide-react';
 import { useToast } from "@/components/ui/use-toast";
+import { useAuthService } from '@/hooks/useAuthService';
 
 const passwordStrengthCheck = (password: string): { 
   score: number; 
@@ -50,6 +51,7 @@ const passwordStrengthCheck = (password: string): {
 const AuthForm = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { login, register, resetPassword, loading } = useAuthService();
   const [activeTab, setActiveTab] = useState('login');
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
@@ -57,14 +59,16 @@ const AuthForm = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [resetEmailSent, setResetEmailSent] = useState(false);
   const [showResetForm, setShowResetForm] = useState(false);
+  const [registrationComplete, setRegistrationComplete] = useState(false);
   
   const passwordStrength = passwordStrengthCheck(password);
   
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Implement actual login logic here
-    // For demo purposes:
-    if (email === 'admin@raykevin.com' && password === 'Admin123!') {
+    
+    const { success } = await login(email, password);
+    
+    if (success) {
       toast({
         title: "Inicio de sesión exitoso",
         description: "Redirigiendo al panel de administración...",
@@ -72,16 +76,10 @@ const AuthForm = () => {
       setTimeout(() => {
         navigate('/admin/blog');
       }, 1500);
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Error de inicio de sesión",
-        description: "Credenciales incorrectas. Inténtalo de nuevo.",
-      });
     }
   };
   
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (password !== confirmPassword) {
@@ -102,25 +100,67 @@ const AuthForm = () => {
       return;
     }
     
-    // Implement actual registration logic here
-    toast({
-      title: "Registro exitoso",
-      description: "Por favor verifica tu email para confirmar tu cuenta",
-    });
+    const { success } = await register(email, password);
     
-    // Redirect to login tab after successful registration
-    setActiveTab('login');
+    if (success) {
+      toast({
+        title: "Registro exitoso",
+        description: "Por favor verifica tu email para confirmar tu cuenta",
+      });
+      setRegistrationComplete(true);
+    }
   };
   
-  const handleResetPassword = (e: React.FormEvent) => {
+  const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Implement actual password reset logic here
-    setResetEmailSent(true);
-    toast({
-      title: "Email enviado",
-      description: "Revisa tu bandeja de entrada para restablecer tu contraseña",
-    });
+    
+    const { success } = await resetPassword(email);
+    
+    if (success) {
+      setResetEmailSent(true);
+      toast({
+        title: "Email enviado",
+        description: "Revisa tu bandeja de entrada para restablecer tu contraseña",
+      });
+    }
   };
+  
+  // Componente para mostrar después del registro
+  const RegistrationCompleteView = () => (
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="text-center py-6"
+    >
+      <CheckCircle size={48} className="mx-auto mb-4 text-green-500" />
+      <h3 className="text-lg font-medium text-white mb-2">Registro Completado</h3>
+      <p className="text-sm text-white/70 mb-4">
+        Hemos enviado un correo de verificación a <strong>{email}</strong>. 
+        Por favor revisa tu bandeja de entrada y haz clic en el enlace de verificación.
+      </p>
+      <div className="mt-4 p-4 bg-raykevin-darker/50 rounded-md border border-raykevin-purple/30">
+        <p className="text-sm text-white/70 mb-2">
+          <strong>Importante:</strong> Si no recibes el correo en unos minutos:
+        </p>
+        <ul className="text-sm text-white/70 text-left list-disc pl-5 space-y-1">
+          <li>Revisa tu carpeta de spam/no deseados</li>
+          <li>Verifica que hayas escrito correctamente tu dirección de correo</li>
+          <li>Espera unos minutos, a veces los correos pueden tardar en llegar</li>
+        </ul>
+      </div>
+      <Button 
+        variant="link" 
+        className="text-raykevin-purple hover:text-raykevin-purple-light mt-4" 
+        onClick={() => {
+          setRegistrationComplete(false);
+          setActiveTab('login');
+        }}
+      >
+        Volver a Inicio de Sesión
+      </Button>
+    </motion.div>
+  );
   
   return (
     <motion.div 
@@ -142,169 +182,181 @@ const AuthForm = () => {
       </div>
       
       {!showResetForm ? (
-        <Tabs 
-          defaultValue={activeTab} 
-          onValueChange={setActiveTab} 
-          className="w-full"
-        >
-          <TabsList className="grid w-full grid-cols-2 mb-6">
-            <TabsTrigger value="login">Iniciar Sesión</TabsTrigger>
-            <TabsTrigger value="register">Registrarse</TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="login">
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="login-email">Email</Label>
-                <Input 
-                  id="login-email" 
-                  type="email" 
-                  placeholder="tu@email.com" 
-                  required 
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-raykevin-darker/50"
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <Label htmlFor="login-password">Contraseña</Label>
-                </div>
-                <div className="relative">
+        registrationComplete ? (
+          <RegistrationCompleteView />
+        ) : (
+          <Tabs 
+            defaultValue={activeTab} 
+            onValueChange={setActiveTab} 
+            className="w-full"
+          >
+            <TabsList className="grid w-full grid-cols-2 mb-6">
+              <TabsTrigger value="login">Iniciar Sesión</TabsTrigger>
+              <TabsTrigger value="register">Registrarse</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="login">
+              <form onSubmit={handleLogin} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="login-email">Email</Label>
                   <Input 
-                    id="login-password" 
-                    type={showPassword ? "text" : "password"} 
-                    placeholder="••••••••" 
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="bg-raykevin-darker/50 pr-10"
+                    id="login-email" 
+                    type="email" 
+                    placeholder="tu@email.com" 
+                    required 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="bg-raykevin-darker/50"
+                    disabled={loading}
                   />
-                  <button 
-                    type="button"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
-                    onClick={() => setShowPassword(!showPassword)}
-                    tabIndex={-1}
-                  >
-                    {showPassword ? <EyeOffIcon size={18} /> : <EyeIcon size={18} />}
-                  </button>
-                </div>
-                <Button 
-                  variant="link" 
-                  className="p-0 h-auto text-sm text-raykevin-purple hover:text-raykevin-purple-light" 
-                  type="button"
-                  onClick={() => setShowResetForm(true)}
-                >
-                  ¿Olvidaste tu contraseña?
-                </Button>
-              </div>
-              
-              <Button 
-                type="submit"
-                className="w-full neuro-button bg-raykevin-slate text-white hover:text-raykevin-purple"
-              >
-                Iniciar Sesión
-              </Button>
-            </form>
-          </TabsContent>
-          
-          <TabsContent value="register">
-            <form onSubmit={handleRegister} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="register-email">Email</Label>
-                <Input 
-                  id="register-email" 
-                  type="email" 
-                  placeholder="tu@email.com" 
-                  required 
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-raykevin-darker/50"
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="register-password">Contraseña</Label>
-                <div className="relative">
-                  <Input 
-                    id="register-password" 
-                    type={showPassword ? "text" : "password"} 
-                    placeholder="••••••••" 
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="bg-raykevin-darker/50 pr-10"
-                  />
-                  <button 
-                    type="button"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
-                    onClick={() => setShowPassword(!showPassword)}
-                    tabIndex={-1}
-                  >
-                    {showPassword ? <EyeOffIcon size={18} /> : <EyeIcon size={18} />}
-                  </button>
                 </div>
                 
-                <div className="mt-2">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs text-gray-400">Fortaleza de contraseña:</span>
-                    <span className="flex items-center gap-1 text-xs">
-                      {passwordStrength.feedback.icon}
-                      <span>{passwordStrength.feedback.message}</span>
-                    </span>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <Label htmlFor="login-password">Contraseña</Label>
                   </div>
-                  <div className="h-1 w-full bg-gray-700 rounded">
-                    <div 
-                      className={`h-1 rounded ${passwordStrength.feedback.color}`} 
-                      style={{ width: `${(passwordStrength.score / 5) * 100}%` }}
-                    ></div>
+                  <div className="relative">
+                    <Input 
+                      id="login-password" 
+                      type={showPassword ? "text" : "password"} 
+                      placeholder="••••••••" 
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="bg-raykevin-darker/50 pr-10"
+                      disabled={loading}
+                    />
+                    <button 
+                      type="button"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                      onClick={() => setShowPassword(!showPassword)}
+                      tabIndex={-1}
+                    >
+                      {showPassword ? <EyeOffIcon size={18} /> : <EyeIcon size={18} />}
+                    </button>
                   </div>
-                  
-                  <ul className="mt-2 space-y-1">
-                    <li className={`text-xs ${password.length >= 8 ? 'text-green-500' : 'text-gray-400'}`}>
-                      • Mínimo 8 caracteres
-                    </li>
-                    <li className={`text-xs ${/[A-Z]/.test(password) ? 'text-green-500' : 'text-gray-400'}`}>
-                      • Al menos una mayúscula
-                    </li>
-                    <li className={`text-xs ${/[0-9]/.test(password) ? 'text-green-500' : 'text-gray-400'}`}>
-                      • Al menos un número
-                    </li>
-                    <li className={`text-xs ${/[^A-Za-z0-9]/.test(password) ? 'text-green-500' : 'text-gray-400'}`}>
-                      • Al menos un símbolo
-                    </li>
-                  </ul>
+                  <Button 
+                    variant="link" 
+                    className="p-0 h-auto text-sm text-raykevin-purple hover:text-raykevin-purple-light" 
+                    type="button"
+                    onClick={() => setShowResetForm(true)}
+                    disabled={loading}
+                  >
+                    ¿Olvidaste tu contraseña?
+                  </Button>
                 </div>
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="confirm-password">Confirmar Contraseña</Label>
-                <div className="relative">
+                
+                <Button 
+                  type="submit"
+                  className="w-full neuro-button bg-raykevin-slate text-white hover:text-raykevin-purple"
+                  disabled={loading}
+                >
+                  {loading ? "Procesando..." : "Iniciar Sesión"}
+                </Button>
+              </form>
+            </TabsContent>
+            
+            <TabsContent value="register">
+              <form onSubmit={handleRegister} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="register-email">Email</Label>
                   <Input 
-                    id="confirm-password" 
-                    type={showPassword ? "text" : "password"} 
-                    placeholder="••••••••" 
-                    required
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="bg-raykevin-darker/50 pr-10"
+                    id="register-email" 
+                    type="email" 
+                    placeholder="tu@email.com" 
+                    required 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="bg-raykevin-darker/50"
+                    disabled={loading}
                   />
                 </div>
-                {confirmPassword && password !== confirmPassword && (
-                  <p className="text-xs text-red-500 mt-1">Las contraseñas no coinciden</p>
-                )}
-              </div>
-              
-              <Button 
-                type="submit"
-                className="w-full neuro-button bg-raykevin-slate text-white hover:text-raykevin-purple"
-              >
-                Crear Cuenta
-              </Button>
-            </form>
-          </TabsContent>
-        </Tabs>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="register-password">Contraseña</Label>
+                  <div className="relative">
+                    <Input 
+                      id="register-password" 
+                      type={showPassword ? "text" : "password"} 
+                      placeholder="••••••••" 
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="bg-raykevin-darker/50 pr-10"
+                      disabled={loading}
+                    />
+                    <button 
+                      type="button"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                      onClick={() => setShowPassword(!showPassword)}
+                      tabIndex={-1}
+                    >
+                      {showPassword ? <EyeOffIcon size={18} /> : <EyeIcon size={18} />}
+                    </button>
+                  </div>
+                  
+                  <div className="mt-2">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-xs text-gray-400">Fortaleza de contraseña:</span>
+                      <span className="flex items-center gap-1 text-xs">
+                        {passwordStrength.feedback.icon}
+                        <span>{passwordStrength.feedback.message}</span>
+                      </span>
+                    </div>
+                    <div className="h-1 w-full bg-gray-700 rounded">
+                      <div 
+                        className={`h-1 rounded ${passwordStrength.feedback.color}`} 
+                        style={{ width: `${(passwordStrength.score / 5) * 100}%` }}
+                      ></div>
+                    </div>
+                    
+                    <ul className="mt-2 space-y-1">
+                      <li className={`text-xs ${password.length >= 8 ? 'text-green-500' : 'text-gray-400'}`}>
+                        • Mínimo 8 caracteres
+                      </li>
+                      <li className={`text-xs ${/[A-Z]/.test(password) ? 'text-green-500' : 'text-gray-400'}`}>
+                        • Al menos una mayúscula
+                      </li>
+                      <li className={`text-xs ${/[0-9]/.test(password) ? 'text-green-500' : 'text-gray-400'}`}>
+                        • Al menos un número
+                      </li>
+                      <li className={`text-xs ${/[^A-Za-z0-9]/.test(password) ? 'text-green-500' : 'text-gray-400'}`}>
+                        • Al menos un símbolo
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="confirm-password">Confirmar Contraseña</Label>
+                  <div className="relative">
+                    <Input 
+                      id="confirm-password" 
+                      type={showPassword ? "text" : "password"} 
+                      placeholder="••••••••" 
+                      required
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      className="bg-raykevin-darker/50 pr-10"
+                      disabled={loading}
+                    />
+                  </div>
+                  {confirmPassword && password !== confirmPassword && (
+                    <p className="text-xs text-red-500 mt-1">Las contraseñas no coinciden</p>
+                  )}
+                </div>
+                
+                <Button 
+                  type="submit"
+                  className="w-full neuro-button bg-raykevin-slate text-white hover:text-raykevin-purple"
+                  disabled={loading}
+                >
+                  {loading ? "Procesando..." : "Crear Cuenta"}
+                </Button>
+              </form>
+            </TabsContent>
+          </Tabs>
+        )
       ) : !resetEmailSent ? (
         <motion.div 
           initial={{ opacity: 0 }}
@@ -326,6 +378,7 @@ const AuthForm = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="bg-raykevin-darker/50"
+                disabled={loading}
               />
             </div>
             
@@ -335,14 +388,16 @@ const AuthForm = () => {
                 variant="outline"
                 onClick={() => setShowResetForm(false)}
                 className="flex-1"
+                disabled={loading}
               >
                 Cancelar
               </Button>
               <Button 
                 type="submit"
                 className="flex-1 neuro-button bg-raykevin-slate text-white hover:text-raykevin-purple"
+                disabled={loading}
               >
-                Enviar Email
+                {loading ? "Enviando..." : "Enviar Email"}
               </Button>
             </div>
           </form>
