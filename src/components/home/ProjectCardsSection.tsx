@@ -5,6 +5,7 @@ import { Tag, Calendar } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 import SectionTitle from '../SectionTitle';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface Project {
   id: number;
@@ -22,6 +23,7 @@ interface Project {
 const ProjectCardsSection = () => {
   const [expandedCard, setExpandedCard] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   // Añadimos un proyecto más para tener 5 en total
   const projects: Project[] = [
@@ -121,52 +123,28 @@ const ProjectCardsSection = () => {
           </div>
           
           {/* Right panel with stacked cards */}
-          <div className="md:w-2/3 lg:w-3/4 relative pl-2" ref={containerRef}>
-            <div className="h-[350px] relative">
-              {projects.map((project, index) => {
-                // Calculate position based on index and whether the card is expanded
-                const isExpanded = expandedCard === project.id;
-                const zIndex = projects.length - index;
-                
-                // Mayor desplazamiento horizontal entre tarjetas (80px en lugar de 60px)
-                const offsetX = index * 190;
-                
-                return (
+          <div className="md:w-2/3 lg:w-3/4 relative">
+            {/* Mobile view with vertical stacked cards */}
+            {isMobile ? (
+              <div className="space-y-4 px-2">
+                {projects.map((project) => (
                   <motion.div
                     key={project.id}
                     className={cn(
-                      "absolute top-0 left-0 w-[280px] h-[340px]", // Ajustamos altura para igualar a la card principal
-                      "glass-card border border-white/10 backdrop-blur-lg overflow-hidden cursor-pointer",
+                      "w-full glass-card border border-white/10 backdrop-blur-lg overflow-hidden",
                       `bg-gradient-to-br ${project.color}`
                     )}
-                    style={{ 
-                      zIndex,
-                      // Posicionamiento inicial - cada tarjeta está más a la derecha que la anterior
-                      left: `${offsetX}px`,
-                    }}
-                    animate={{
-                      // Al expandir, mueve la tarjeta hacia la izquierda para destacarla
-                      x: isExpanded ? -40 : 0,
-                      // Al expandir, elimina la opacidad y escala reducida
-                      scale: isExpanded ? 1.05 : 1 - (index * 0.02),
-                      opacity: isExpanded ? 1 : 1 - (index * 0.03), // Menos reducción de opacidad
-                      // Añadir elevación en Z al expandir
-                      zIndex: isExpanded ? 100 : zIndex,
-                      transition: { duration: 0.4, ease: "easeOut" }
-                    }}
-                    initial={{
-                      scale: 1 - (index * 0.02),
-                      opacity: 1 - (index * 0.03)
-                    }}
-                    onClick={() => setExpandedCard(project.id === expandedCard ? null : project.id)}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
                   >
-                    <div className="p-6 h-full flex flex-col">
+                    <div className="p-6 flex flex-col">
                       <div className="flex items-center gap-2 mb-2">
                         <Calendar size={16} className="text-white/60" />
                         <span className="text-sm text-white/60">{project.date}</span>
                       </div>
                       
-                      <h3 className="text-xl md:text-2xl font-medium text-white mb-4">
+                      <h3 className="text-xl font-medium text-white mb-4">
                         {project.title}
                       </h3>
                       
@@ -191,9 +169,85 @@ const ProjectCardsSection = () => {
                       </div>
                     </div>
                   </motion.div>
-                );
-              })}
-            </div>
+                ))}
+              </div>
+            ) : (
+              // Desktop view with overlapping cards
+              <div className="h-[350px] relative pl-2" ref={containerRef}>
+                <div className="h-[350px] relative">
+                  {projects.map((project, index) => {
+                    // Calculate position based on index and whether the card is expanded
+                    const isExpanded = expandedCard === project.id;
+                    const zIndex = projects.length - index;
+                    
+                    // Mayor desplazamiento horizontal entre tarjetas (190px)
+                    const offsetX = index * 190;
+                    
+                    return (
+                      <motion.div
+                        key={project.id}
+                        className={cn(
+                          "absolute top-0 left-0 w-[280px] h-[340px]",
+                          "glass-card border border-white/10 backdrop-blur-lg overflow-hidden cursor-pointer",
+                          `bg-gradient-to-br ${project.color}`
+                        )}
+                        style={{ 
+                          zIndex,
+                          // Posicionamiento inicial - cada tarjeta está más a la derecha que la anterior
+                          left: `${offsetX}px`,
+                        }}
+                        animate={{
+                          // Al expandir, mueve la tarjeta hacia la izquierda para destacarla
+                          x: isExpanded ? -40 : 0,
+                          // Al expandir, elimina la opacidad y escala reducida
+                          scale: isExpanded ? 1.05 : 1 - (index * 0.02),
+                          opacity: isExpanded ? 1 : 1 - (index * 0.03), // Menos reducción de opacidad
+                          // Añadir elevación en Z al expandir
+                          zIndex: isExpanded ? 100 : zIndex,
+                          transition: { duration: 0.4, ease: "easeOut" }
+                        }}
+                        initial={{
+                          scale: 1 - (index * 0.02),
+                          opacity: 1 - (index * 0.03)
+                        }}
+                        onClick={() => setExpandedCard(project.id === expandedCard ? null : project.id)}
+                      >
+                        <div className="p-6 h-full flex flex-col">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Calendar size={16} className="text-white/60" />
+                            <span className="text-sm text-white/60">{project.date}</span>
+                          </div>
+                          
+                          <h3 className="text-xl md:text-2xl font-medium text-white mb-4">
+                            {project.title}
+                          </h3>
+                          
+                          <div className="flex flex-wrap gap-2 mb-6">
+                            {project.tags.map((tag, idx) => (
+                              <div 
+                                key={idx} 
+                                className="flex items-center gap-1 px-3 py-1 rounded-full bg-white/10 text-xs font-medium text-white"
+                              >
+                                <Tag size={12} />
+                                {tag}
+                              </div>
+                            ))}
+                          </div>
+                          
+                          <div className="mt-auto flex items-center gap-3">
+                            <Avatar className="h-8 w-8">
+                              <AvatarImage src={project.author.avatar} alt={project.author.name} />
+                              <AvatarFallback>{project.author.fallback}</AvatarFallback>
+                            </Avatar>
+                            <span className="text-sm text-white/80">{project.author.name}</span>
+                          </div>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
