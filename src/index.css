@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -95,6 +96,19 @@
   
   .testimonial-card-dark {
     @apply bg-raykevin-purple/40;
+  }
+  
+  /* New glassmorphic-specific styles */
+  .glassmorphic-depth-1 {
+    @apply bg-white/10 backdrop-blur-md border border-white/15 shadow-lg;
+  }
+  
+  .glassmorphic-depth-2 {
+    @apply bg-white/5 backdrop-blur-sm border border-white/10 shadow-md;
+  }
+  
+  .glassmorphic-depth-3 {
+    @apply bg-white/3 backdrop-blur-sm border border-white/5 shadow-sm;
   }
 }
 

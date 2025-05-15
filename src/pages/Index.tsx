@@ -7,7 +7,7 @@ import ServicesSection from '@/components/home/ServicesSection';
 import ApproachSection from '@/components/home/ApproachSection';
 import TestimonialsSection from '@/components/home/TestimonialsSection';
 import FaqSection from '@/components/home/FaqSection';
-import CtaSection from '@/components/home/CtaSection';
+import GlassmorphicCtaSection from '@/components/home/GlassmorphicCtaSection';
 import ProjectCardsSection from '@/components/home/ProjectCardsSection';
 
 const Index = () => {
@@ -23,7 +23,7 @@ const Index = () => {
         <ApproachSection />
         <TestimonialsSection />
         <FaqSection />
-        <CtaSection />
+        <GlassmorphicCtaSection />
       </main>
       
       <Footer />
