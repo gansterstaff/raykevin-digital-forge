@@ -1,0 +1,40 @@
+/* src/components/AnimatedCarousel.css */
+
+/* Definición de la animación de desplazamiento */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% / 3)); /* Desplaza 1/3 del contenido (para 3 sets) */
+  }
+}
+
+.animated-carousel-wrapper {
+  /* Aplicar la animación */
+  animation: scroll-left linear infinite;
+  /* Asegurarse de que el contenido ocupe el espacio necesario para el desplazamiento */
+  width: max-content; /* Permite que el contenido determine el ancho */
+  /* El espacio entre elementos se manejará con márgenes en los items */
+  /* Mejorar la transición entre elementos */
+  padding: 0.5rem 0;
+}
+
+/* Pausar la animación al pasar el ratón por encima */
+.animated-carousel-container:hover .animated-carousel-wrapper {
+  animation-play-state: paused;
+}
+
+/* Asegurarse de que el contenedor principal oculte el contenido desbordado */
+.animated-carousel-container {
+  width: 100%; /* Asegura que el contenedor ocupe el ancho disponible */
+  overflow: hidden;
+}
+
+/* El ancho mínimo de los elementos se manejará con clases de Tailwind en el componente TSX */
+/* .animated-carousel-item {
+  flex-shrink: 0;
+  min-width: 20rem; /* Ejemplo de min-width: 320px (equivalente a min-w-xs en Tailwind) */
+/* } */
+
+/* Las clases de ancho responsivo (w-full, sm:w-1/2, lg:w-1/3) también se aplican en el componente TSX */
